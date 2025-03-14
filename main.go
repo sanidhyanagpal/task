@@ -17,7 +17,6 @@ func main() {
 	r.POST("/login", services.LoginHandler)
 	r.POST("/register", services.RegisterHandler)
 
-	// Launch Kafka consumer in a separate goroutine
 	go kafka.StartConsumer()
 
 	r.Run(":8080")
