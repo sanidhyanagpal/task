@@ -1,0 +1,30 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Build Docker Images
+        run: |
+          docker build -t fintech-backend:latest ./backend
+          docker build -t fintech-frontend:latest ./frontend
+
+      - name: Push Images to Registry
+        run: |
+          echo "Pushing images to registry..."
+
+      - name: Deploy with ArgoCD
+        run: |
+          argocd app sync fintech-app
+
+      - name: Verify Deployment & Rollback if Needed
+        run: |
+          kubectl rollout status deployment/fintech-backend || kubectl rollout undo deployment/fintech-backend
