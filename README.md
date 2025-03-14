@@ -1,4 +1,4 @@
-#Clone the repository: git clone https://github.com/sanidhyanagpal/task.git
+Clone the repository: git clone https://github.com/sanidhyanagpal/task.git
 Set up environment variables:Create a .env file in the root directory and add necessary environment variables for your services (DB credentials, API keys, etc.).
     DB_HOST=localhost
     DB_USER=admin
