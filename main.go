@@ -1,18 +1,24 @@
 package main
+
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"fintech-app/kafka"
 	"fintech-app/services"
 )
+
 func main() {
 	r := gin.Default()
+
 	r.GET("/health", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"status": "ok"})
+		c.JSON(http.StatusOK, gin.H{"status": "running"})
 	})
+
 	r.POST("/login", services.LoginHandler)
 	r.POST("/register", services.RegisterHandler)
-	// Start Kafka consumer
+
+	// Launch Kafka consumer in a separate goroutine
 	go kafka.StartConsumer()
+
 	r.Run(":8080")
 }
